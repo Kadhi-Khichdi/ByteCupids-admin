@@ -1,0 +1,1027 @@
+.form-container {
+    background: var(--color-surface);
+    /* Changed from rgba(10, 21, 27, 0.4) */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    /* Use variable */
+    padding: var(--spacing-5);
+    /* Use variable */
+    width: 100%;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border: var(--border-light);
+    /* Use variable */
+    z-index: 10;
+    max-height: 95vh;
+    /* Slightly less than viewport to ensure no scrolling */
+    overflow-y: auto;
+    /* Allow internal scrolling if content doesn't fit */
+    scrollbar-width: thin;
+    /* Thin scrollbar for Firefox */
+    scrollbar-color: var(--color-neon-violet) var(--color-surface-2);
+    /* Use variables */
+}
+
+
+/* Form styles */
+.form-title {
+    color: var(--color-text-primary);
+    /* Changed from --color-primary-text */
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-size: min(2rem, 7vh);
+}
+
+.form-subtitle {
+    color: var(--color-text-secondary);
+    /* Changed from --color-secondary-text */
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    font-size: min(1rem, 3vh);
+    margin-bottom: min(2rem, 5vh);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-input {
+    width: 100%;
+    background: var(--color-surface-2);
+    /* Changed from rgba(0,0,0,0.3) */
+    border: 1px solid var(--color-surface);
+    /* Changed from rgba(255,255,255,0.2) */
+    border-radius: var(--border-radius-sm);
+    /* Use variable */
+    padding: 14px 16px;
+    color: var(--color-text-primary);
+    /* Changed from --color-primary-text */
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    padding: min(14px, 2vh) min(16px, 3vw);
+    font-size: min(1rem, 3vh);
+    ;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-neon-violet);
+    /* Changed from rgba(0,169,157,0.5) */
+    box-shadow: var(--shadow-focus);
+    /* Use variable */
+}
+
+.form-input::placeholder {
+    color: var(--color-text-tertiary);
+    /* Changed from rgba(255,255,255,0.4) */
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: var(--color-neon-violet);
+    /* Changed from --color-accent-primary */
+}
+
+.checkbox-container label {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+.form-button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    margin-bottom: 1rem;
+    padding: min(14px, 2vh);
+    font-size: min(1rem, 3vh);
+}
+
+.primary-button {
+    background: var(--color-rose-gold);
+    /* Changed from gradient */
+    color: var(--color-text-primary);
+    /* Changed from --color-primary-text */
+}
+
+.primary-button:hover {
+    box-shadow: 0 8px 15px rgba(183, 110, 121, 0.2);
+    /* var(--color-rose-gold) with alpha */
+    transform: translateY(-2px);
+}
+
+.secondary-button {
+    background: var(--color-neon-violet);
+    /* Changed from gradient */
+    color: var(--color-text-primary);
+    /* Changed from white */
+}
+
+.secondary-button:hover {
+    box-shadow: 0 8px 15px rgba(170, 0, 255, 0.2);
+    /* var(--color-neon-violet) with alpha */
+    transform: translateY(-2px);
+}
+
+.form-link-center {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.form-link-center a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.form-link-center a:hover {
+    color: var(--color-neon-violet);
+    /* Changed from --color-primary-text */
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--color-text-secondary);
+    margin: 25px 0;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: var(--border-light);
+    /* Changed from rgba(255,255,255,0.1) */
+}
+
+.separator span {
+    padding: 0 10px;
+    font-size: 0.9rem;
+}
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 2rem;
+}
+
+.social-button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    background-color: var(--color-surface-2);
+    /* Changed from rgba(255,255,255,0.1) */
+}
+
+.social-button:hover {
+    transform: translateY(-3px);
+}
+
+.google:hover {
+    background-color: var(--color-surface);
+    /* Changed from rgba(255,255,255,0.2) */
+}
+
+.facebook:hover {
+    background-color: rgba(59, 89, 152, 0.3);
+    /* Kept specific for brand, slightly darker */
+}
+
+.github:hover {
+    background-color: var(--color-surface);
+    /* Changed from rgba(51,51,51,0.2) */
+}
+
+.form-footer {
+    text-align: center;
+    color: var(--color-text-secondary);
+}
+
+.form-footer p {
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.form-footer a {
+    color: var(--color-neon-violet);
+    /* Changed from --color-accent-primary */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.form-footer a:hover {
+    color: var(--color-rose-gold);
+    /* Changed from --color-accent-primary-hover */
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+    font-size: 0.8rem;
+}
+
+/* But keep the page container with hidden overflow */
+.onboarding-page {
+    overflow-x: hidden;
+    position: fixed;
+    /* Fixed position to prevent any scrolling */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* Use viewport height */
+    overflow: hidden;
+    /* Prevent scrolling */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+    .onboarding-heading {
+        font-size: 3.5rem;
+    }
+
+    /* Adjust glow positions for better blending on smaller screens */
+    .onboarding-left::after {
+        width: 350px;
+        height: 350px;
+        right: -50px;
+    }
+
+    .onboarding-right::before {
+        top: 15%;
+        left: 15%;
+    }
+
+    .onboarding-right::after {
+        bottom: 15%;
+        right: 15%;
+    }
+}
+
+@media (max-width: 768px) {
+    .onboarding-container {
+        flex-direction: column;
+        overflow: hidden;
+        /* Reset to hidden for mobile */
+    }
+
+    .onboarding-left {
+        height: 30vh;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .onboarding-heading {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .onboarding-right {
+        height: 70vh;
+        padding: 20px;
+    }
+
+    .form-container {
+        padding: 30px;
+        max-width: 90%;
+    }
+
+    /* Adjust the glow for vertical layout */
+    .onboarding-left::after {
+        width: 300px;
+        height: 300px;
+        bottom: 0;
+        top: auto;
+        right: 50%;
+        transform: translate(50%, 50%);
+    }
+}
+
+/* Add these optimizations for mobile devices */
+
+/* Mobile-first adjustments */
+@media (max-width: 768px) {
+
+    /* Hide left section completely on mobile */
+    .onboarding-left {
+        display: none;
+    }
+
+    /* Make right section take full width */
+    .onboarding-right {
+        flex: 1;
+        width: 100%;
+        height: 100vh;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Optimize form container for mobile */
+    .form-container {
+        width: 100%;
+        max-width: 400px;
+        padding: 30px 20px;
+        margin: 0;
+        height: auto;
+        max-height: 90vh;
+        overflow-y: auto;
+        /* Allow scrolling within form if needed */
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Reduce vertical spacing */
+    .form-title {
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .form-subtitle {
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.2rem;
+    }
+
+    .form-input {
+        padding: 12px 14px;
+        font-size: 0.95rem;
+    }
+
+    /* Adjust button size */
+    .form-button {
+        padding: 12px;
+        font-size: 0.95rem;
+        margin-bottom: 0.8rem;
+    }
+
+    /* Reduce space around separator */
+    .separator {
+        margin: 15px 0;
+    }
+
+    /* Reduce space after social buttons */
+    .social-login {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Make footer more compact */
+    .footer-links {
+        margin-top: 15px;
+        gap: 10px;
+    }
+
+    /* Position orbs for better mobile view */
+    .onboarding-right::before {
+        width: 200px;
+        height: 200px;
+        top: 10%;
+        left: 25%;
+    }
+
+    .onboarding-right::after {
+        width: 250px;
+        height: 250px;
+        bottom: 5%;
+        right: 25%;
+    }
+}
+
+/* Even smaller screens */
+@media (max-width: 480px) {
+    .form-container {
+        padding: 20px 15px;
+    }
+
+    .form-title {
+        font-size: 1.6rem;
+    }
+
+    .form-subtitle {
+        font-size: 0.85rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .form-input {
+        padding: 10px 12px;
+    }
+
+    .form-button {
+        padding: 10px;
+    }
+
+    .social-button {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+/* Fix for very short screens (landscape orientation on phones) */
+@media (max-height: 600px) and (max-width: 768px) {
+    .form-container {
+        padding: 15px;
+        height: auto;
+        max-height: 85vh;
+    }
+
+    .form-group {
+        margin-bottom: 0.8rem;
+    }
+
+    .form-title {
+        font-size: 1.4rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .form-subtitle {
+        margin-bottom: 0.8rem;
+    }
+
+    .form-input {
+        padding: 8px 12px;
+    }
+
+    .social-login {
+        margin-bottom: 1rem;
+    }
+
+    .footer-links {
+        margin-top: 10px;
+    }
+}
+
+/* Ensure smooth content scaling on intermediate devices */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .onboarding-container {
+        display: flex;
+    }
+
+    /* Show left div but make it smaller */
+    .onboarding-left {
+        flex: 0.7;
+        display: flex;
+    }
+
+    /* Make right side larger proportion */
+    .onboarding-right {
+        flex: 1.3;
+    }
+
+    /* Ensure text fits */
+    .onboarding-heading {
+        font-size: 3rem;
+    }
+}
+
+/* Prevent body scrolling when form is displayed on mobile */
+@media (max-width: 768px) {
+    .onboarding-page {
+        height: 100vh;
+        overflow: hidden;
+    }
+}
+
+/* Override the container styles for mobile */
+@media (max-width: 768px) {
+    .onboarding-container {
+        flex-direction: row;
+        /* Override the column layout */
+        height: 100vh;
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 480px) {
+    .onboarding-heading {
+        font-size: 2.5rem;
+    }
+
+    .skip-btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+
+    .form-title {
+        font-size: 1.75rem;
+    }
+
+    .form-container {
+        padding: 25px 20px;
+    }
+
+    .form-input {
+        padding: 12px 14px;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+/* Core container adjustments to prevent scrolling */
+.onboarding-page {
+    position: fixed;
+    /* Fixed position to prevent any scrolling */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* Use viewport height */
+    overflow: hidden;
+    /* Prevent scrolling */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.onboarding-container {
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+    display: flex;
+}
+
+/* Webkit scrollbar styling for the form container only */
+.form-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.form-container::-webkit-scrollbar-track {
+    background: var(--color-surface-2);
+    /* Use variable */
+}
+
+.form-container::-webkit-scrollbar-thumb {
+    background: var(--color-neon-violet);
+    /* Use variable */
+    border-radius: 4px;
+}
+
+/* Adaptive responsive layouts */
+@media (max-width: 768px) {
+    .onboarding-left {
+        display: none;
+        /* Hide left side on mobile */
+    }
+
+    .onboarding-right {
+        flex: 1;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        /* Minimal padding */
+    }
+
+    .form-container {
+        width: 100%;
+        max-width: 95vw;
+        padding: min(30px, 5vh) min(20px, 4vw);
+        max-height: 90vh;
+    }
+
+    /* Adaptive form sizing */
+    .form-group {
+        margin-bottom: min(1.2rem, 2.5vh);
+    }
+
+    .separator {
+        margin: min(15px, 2vh) 0;
+    }
+
+    .social-login {
+        margin-bottom: min(1.5rem, 3vh);
+    }
+
+    /* Vertically stack footer links to save space */
+    .footer-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        margin-top: min(15px, 2vh);
+    }
+}
+
+/* For very small screens, further optimize space usage */
+@media (max-width: 480px),
+(max-height: 600px) {
+    .form-container {
+        padding: min(20px, 3vh) min(15px, 3vw);
+    }
+
+    /* Scale down all form elements */
+    .form-title {
+        font-size: min(1.6rem, 6vh);
+        margin-bottom: 0.2rem;
+    }
+
+    .form-subtitle {
+        font-size: min(0.85rem, 2.5vh);
+        margin-bottom: min(1rem, 2vh);
+    }
+
+    .form-group {
+        margin-bottom: min(0.8rem, 2vh);
+    }
+
+    .form-input {
+        padding: min(10px, 1.5vh) min(12px, 2.5vw);
+    }
+
+    .form-row {
+        margin-bottom: min(1rem, 2vh);
+    }
+
+    .checkbox-container label {
+        font-size: min(0.8rem, 2.5vh);
+    }
+
+    .form-button {
+        padding: min(10px, 1.5vh);
+        margin-bottom: min(0.6rem, 1vh);
+    }
+
+    .social-button {
+        width: min(38px, 10vw);
+        height: min(38px, 10vw);
+    }
+
+    .form-footer p {
+        margin-bottom: min(10px, 1.5vh);
+        font-size: min(0.8rem, 2.5vh);
+    }
+}
+
+/* Handle landscape orientation on phones */
+@media (max-height: 500px) and (orientation: landscape) {
+    .form-container {
+        padding: 10px 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        /* Two-column layout in landscape */
+        column-gap: 20px;
+        align-items: start;
+    }
+
+    .form-title,
+    .form-subtitle {
+        grid-column: 1 / -1;
+        /* Span full width */
+    }
+
+    .form-group:nth-child(odd) {
+        grid-column: 1;
+    }
+
+    .form-group:nth-child(even) {
+        grid-column: 2;
+    }
+
+    .form-row,
+    .form-button,
+    .separator,
+    .social-login,
+    .form-footer {
+        grid-column: 1 / -1;
+        /* Span full width */
+    }
+
+    /* Even more compact spacing */
+    .form-title {
+        font-size: 1.3rem;
+        margin-bottom: 0.1rem;
+    }
+
+    .form-subtitle {
+        margin-bottom: 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    .form-group {
+        margin-bottom: 0.6rem;
+    }
+
+    .social-login {
+        margin-bottom: 0.6rem;
+    }
+
+    .form-footer {
+        margin-top: 0.6rem;
+    }
+
+    .footer-links {
+        margin-top: 0.4rem;
+    }
+}
+
+/* Override container styles for all devices to ensure no scrolling */
+html,
+body {
+    overflow: hidden;
+    height: 100%;
+}
+
+/* Ensure content doesn't get cut off on very small devices */
+@media (max-height: 400px),
+(max-width: 340px) {
+    .social-login {
+        display: flex;
+        gap: 8px;
+    }
+
+    .form-footer {
+        font-size: 0.7rem;
+    }
+
+    .footer-links {
+        display: none;
+        /* Hide footer links on extremely small screens */
+    }
+
+    .form-container {
+        max-height: 98vh;
+        /* Use almost full height */
+    }
+}
+
+/* Prevent any accidental scrolling from touch gestures */
+.onboarding-page {
+    touch-action: none;
+}
+
+/* Override conflicting media queries */
+@media (max-width: 768px) {
+    .onboarding-container {
+        flex-direction: row;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    /* Ensure even in column layout, elements don't cause overflow */
+    .onboarding-page {
+        display: block;
+        height: 100vh;
+        overflow: hidden;
+    }
+}
+
+/* Add ByteCupids logo/text as back button */
+.brand-logo {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    /* Changed from --color-primary-text */
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    z-index: 50;
+    /* Make sure it's above other elements */
+    transition: all 0.3s ease;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.brand-logo:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 0 10px var(--color-neon-violet);
+    /* var(--color-neon-violet) with alpha */
+}
+
+.brand-logo::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--color-neon-violet);
+    /* Changed from gradient */
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 0 8px var(--color-neon-violet);
+    /* var(--color-neon-violet) with alpha */
+}
+
+/* ByteCupids tagline in the left div to replace button */
+.bytecupids-tagline {
+    margin-top: 1rem;
+    padding: 16px 20px 24px 20px;
+    /* Extra bottom padding for underline */
+    background: rgba(170, 0, 255, 0.05);
+    /* var(--color-neon-violet) with low alpha */
+    border-left: 3px solid var(--color-neon-violet);
+    /* var(--color-neon-violet) with alpha */
+    border-radius: 0 8px 8px 0;
+    max-width: 90%;
+    position: relative;
+    animation: fadeInSlideUp 1s ease-out 0.7s forwards;
+    opacity: 0;
+    transform: translateY(30px);
+
+}
+
+.bytecupids-tagline hr,
+.bytecupids-tagline .bytecupids-underline {
+    display: none !important;
+}
+
+.bytecupids-tagline::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+    height: 2px;
+    width: 90%;
+    margin: 0 auto;
+    background: linear-gradient(90deg, var(--color-neon-violet), transparent 80%);
+    border-radius: 2px;
+    z-index: 2;
+    margin-bottom: -2rem;
+    margin-left: -0.1rem;
+}
+
+.bytecupids-highlight {
+    color: var(--color-neon-violet);
+    /* Changed from --color-accent-primary */
+    font-weight: 500;
+}
+
+/* Make sure the brand-logo is visible in mobile view */
+@media (max-width: 768px) {
+    .brand-logo {
+        top: 20px;
+        left: 20px;
+        font-size: 1.3rem;
+    }
+
+    /* Since we're hiding the left div on mobile, make sure the logo is still visible */
+    .onboarding-page .brand-logo {
+        display: flex;
+
+    }
+
+
+}
+
+/* Additional CSS for mobile logo visibility */
+@media (max-width: 768px) {
+    .brand-logo {
+        top: 20px;
+        left: 20px;
+        z-index: 100;
+        font-size: 1.2rem;
+    }
+
+    /* Ensure the form doesn't overlap the logo */
+    .onboarding-right {
+        padding-top: 0px;
+        /* Add top padding to avoid logo overlap */
+        margin-top: -1.2rem;
+    }
+
+    .form-container {
+        padding: 1.5rem 1rem;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive styles for login left panel heading and paragraph */
+.login-left-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 60px;
+    background: transparent;
+    min-height: 100vh;
+}
+
+.login-heading {
+    font-size: 3.75rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 2rem;
+    line-height: 1.1;
+    text-align: left;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -1px;
+}
+
+.login-paragraph {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    font-weight: 400;
+    max-width: 85%;
+}
+
+@media (max-width: 1535px) {
+    .login-heading {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 1199px) {
+    .login-heading {
+        font-size: 2.25rem;
+    }
+}
+
+@media (max-width: 1023px) {
+    .login-heading {
+        font-size: 1.875rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .login-heading {
+        font-size: 1.5rem;
+    }
+
+    .login-paragraph {
+        font-size: 1rem;
+    }
+
+    .login-left-panel {
+        padding: 40px 20px;
+        align-items: center;
+    }
+}
+
+@media (max-width: 639px) {
+    .login-heading {
+        font-size: 1.25rem;
+    }
+
+    .login-paragraph {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-paragraph {
+        font-size: 0.75rem;
+    }
+
+    .login-left-panel {
+        padding: 20px 8px;
+    }
+}
