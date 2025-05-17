@@ -13,6 +13,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html{
+  height: 100%;
+  width: 100%;
+  scroll-behavior: smooth;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

@@ -1,6 +1,6 @@
 import type React from "react";
 import styles from "./AdminLoginPage.module.css";
-import LoginForm from "./LoginForm";
+import LoginForm from "./components/LoginForm";
 
 const AdminLoginPage : React.FC = () => {
     return (
