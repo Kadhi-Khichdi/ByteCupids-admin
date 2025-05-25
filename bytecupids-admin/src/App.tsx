@@ -4,15 +4,51 @@ import './App.css'
 import { DashboardProvider } from './context/DashboardContext'
 
 
-const AdminLoginPage = React.lazy(() => import('./pages/AdminLogin/AdminLoginPage'))
-const DashboardPage = React.lazy(() => import('./pages/Dashboard/DashboardPage'))
+const lazyWithMinTime = (
+  factory: () => Promise<any>,
+  minDisplayTimeMs = 2000
+) => {
+  return React.lazy(() =>
+    Promise.all([
+      factory(),
+      new Promise((resolve) => setTimeout(resolve, minDisplayTimeMs)),
+    ]).then(([moduleExports]) => moduleExports)
+  );
+};
+
+const ThemedLoaderComponent = () => (
+  <div className="themed-loader cursor-bg">
+    <div className="particle-burst-loader">
+      <div className="particle-arm p1">
+        <div className="particle-head"></div>
+      </div>
+      <div className="particle-arm p2">
+        <div className="particle-head"></div>
+      </div>
+      <div className="particle-arm p3">
+        <div className="particle-head"></div>
+      </div>
+      <div className="particle-arm p4">
+        <div className="particle-head"></div>
+      </div>
+      <div className="particle-arm p5">
+        <div className="particle-head"></div>
+      </div>
+    </div>
+  </div>
+);
+
+const AdminLoginPage = lazyWithMinTime(() => import('./pages/AdminLogin/AdminLoginPage'))
+const DashboardPage = lazyWithMinTime(() => import('./pages/Dashboard/DashboardPage'))
+
+
 function App() {
   return (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AdminLoginPage />} />
           <Route path="/dashboard" element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<ThemedLoaderComponent />}>
               <DashboardProvider>
                 <DashboardPage />
               </DashboardProvider>

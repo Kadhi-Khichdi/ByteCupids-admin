@@ -1,16 +1,25 @@
 import type React from "react";
 import styles from "./DashboardContents.module.css"; // Import styles as an object
 import { useDashboardContext } from "../../../context/DashboardContext";
+import DashBoardModules from "./ModulesSection";
+import Dashboard from "./Dashboard";
+import Pipelines from "./Pipelines";
 
 const DashboardContents: React.FC = () => {
-
-    // const [hasSelected, handleSelected] = useDashboardContext();
-
+    
     const { hasSelected, handleSelected } = useDashboardContext();
 
     return (
         <div className={styles.component}>
-            {hasSelected}
+            {hasSelected === "dashboard" && (
+                <Dashboard />
+            )}
+            {hasSelected === "modules" && (
+                <DashBoardModules />
+            )}
+            {hasSelected === "pipelines" && (
+                <Pipelines/>
+            )}
         </div>
     )
 }
