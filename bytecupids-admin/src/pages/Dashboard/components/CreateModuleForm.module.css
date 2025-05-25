@@ -1,0 +1,567 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: var(--spacing-3);
+    backdrop-filter: blur(4px);
+
+    /* Animation properties */
+    opacity: 0;
+    animation: fadeInOverlay 0.3s ease-out forwards;
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+
+    to {
+        opacity: 1;
+        backdrop-filter: blur(4px);
+    }
+}
+
+.modal {
+    background: var(--color-bg);
+    border: var(--border-light);
+    border-radius: var(--border-radius-lg);
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-medium);
+
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    animation: fadeInModal 0.4s ease-out 0.1s forwards;
+}
+
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-4);
+    border-bottom: var(--border-light);
+    flex-shrink: 0;
+
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: slideInFromTop 0.5s ease-out 0.2s forwards;
+}
+
+@keyframes slideInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.title {
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.closeButton {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: var(--spacing-1);
+    border-radius: var(--border-radius-sm);
+    color: var(--color-text-secondary);
+    transition: var(--transition-fast);
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.closeButton:hover {
+    background: var(--color-error);
+    color: var(--color-white);
+    transform: scale(1.1);
+}
+
+.form {
+    padding: var(--spacing-4);
+    overflow-y: auto;
+    flex: 1;
+
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideInFromBottom 0.6s ease-out 0.3s forwards;
+}
+
+@keyframes slideInFromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.formGroup {
+    margin-bottom: var(--spacing-4);
+
+    /* Animation properties */
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: slideInFromLeft 0.4s ease-out forwards;
+}
+
+/* Stagger animation for form groups */
+.formGroup:nth-child(1) {
+    animation-delay: 0.4s;
+}
+
+.formGroup:nth-child(2) {
+    animation-delay: 0.45s;
+}
+
+.formGroup:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+.formGroup:nth-child(4) {
+    animation-delay: 0.55s;
+}
+
+.formGroup:nth-child(5) {
+    animation-delay: 0.6s;
+}
+
+.formGroup:nth-child(6) {
+    animation-delay: 0.65s;
+}
+
+.formGroup:nth-child(7) {
+    animation-delay: 0.7s;
+}
+
+.formGroup:nth-child(8) {
+    animation-delay: 0.75s;
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-4);
+
+    /* Animation properties */
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: slideInFromLeft 0.4s ease-out forwards;
+}
+
+/* Stagger animation for form rows */
+.formRow:nth-child(2) {
+    animation-delay: 0.45s;
+}
+
+.formRow:nth-child(3) {
+    animation-delay: 0.55s;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-2);
+}
+
+.wordCount {
+    font-size: var(--font-size-caption);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-normal);
+}
+
+.input,
+.select,
+.textarea {
+    width: 100%;
+    padding: var(--spacing-3);
+    background: var(--color-surface);
+    border: var(--border-light);
+    border-radius: var(--border-radius-md);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    transition: var(--transition-fast);
+    font-family: inherit;
+    resize: vertical;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+    outline: none;
+    border-color: var(--color-neon-violet);
+    box-shadow: var(--shadow-focus);
+    transform: translateY(-1px);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+    color: var(--color-text-tertiary);
+}
+
+.select {
+    cursor: pointer;
+}
+
+.select option {
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+}
+
+.textarea {
+    min-height: 80px;
+}
+
+.error {
+    border-color: var(--color-error) !important;
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2) !important;
+    animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.errorText {
+    color: var(--color-error);
+    font-size: var(--font-size-caption);
+    margin-top: var(--spacing-1);
+    display: block;
+    opacity: 0;
+    animation: fadeInError 0.3s ease-out forwards;
+}
+
+@keyframes fadeInError {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.formActions {
+    display: flex;
+    gap: var(--spacing-3);
+    justify-content: flex-end;
+    padding-top: var(--spacing-4);
+    border-top: var(--border-light);
+    margin-top: var(--spacing-4);
+
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideInFromBottom 0.5s ease-out 0.8s forwards;
+}
+
+.cancelButton,
+.submitButton {
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    border: none;
+    min-width: 120px;
+}
+
+.cancelButton {
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+    border: var(--border-light);
+}
+
+.cancelButton:hover:not(:disabled) {
+    background: var(--color-surface-2);
+    transform: translateY(-2px);
+}
+
+.submitButton {
+    background: var(--color-neon-violet);
+    color: var(--color-white);
+}
+
+.submitButton:hover:not(:disabled) {
+    background: var(--color-rose-gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.submitButton:active {
+    transform: translateY(0);
+}
+
+.cancelButton:disabled,
+.submitButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Custom scrollbar for form */
+.form::-webkit-scrollbar {
+    width: 6px;
+}
+
+.form::-webkit-scrollbar-track {
+    background: var(--color-surface);
+    border-radius: var(--border-radius-sm);
+}
+
+.form::-webkit-scrollbar-thumb {
+    background: var(--color-surface-2);
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition-fast);
+}
+
+.form::-webkit-scrollbar-thumb:hover {
+    background: var(--color-neon-violet);
+}
+
+/* Exit animations for closing */
+.overlay.closing {
+    animation: fadeOutOverlay 0.2s ease-in forwards;
+}
+
+@keyframes fadeOutOverlay {
+    from {
+        opacity: 1;
+        backdrop-filter: blur(4px);
+    }
+
+    to {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+}
+
+.modal.closing {
+    animation: fadeOutModal 0.3s ease-in forwards;
+}
+
+@keyframes fadeOutModal {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .overlay {
+        padding: var(--spacing-2);
+    }
+
+    .modal {
+        max-height: 95vh;
+        animation: fadeInModalMobile 0.4s ease-out 0.1s forwards;
+    }
+
+    @keyframes fadeInModalMobile {
+        from {
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .header {
+        padding: var(--spacing-3);
+    }
+
+    .title {
+        font-size: var(--font-size-h3);
+    }
+
+    .form {
+        padding: var(--spacing-3);
+    }
+
+    .formRow {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .formGroup {
+        margin-bottom: var(--spacing-3);
+    }
+
+    .formActions {
+        flex-direction: column-reverse;
+        gap: var(--spacing-2);
+    }
+
+    .cancelButton,
+    .submitButton {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .overlay {
+        padding: var(--spacing-1);
+    }
+
+    .header {
+        padding: var(--spacing-2);
+    }
+
+    .form {
+        padding: var(--spacing-2);
+    }
+
+    .input,
+    .select,
+    .textarea {
+        padding: var(--spacing-2);
+        font-size: var(--font-size-caption);
+    }
+
+    .label {
+        font-size: var(--font-size-caption);
+    }
+
+    /* Reduce animation delays for mobile */
+    .formGroup:nth-child(1) {
+        animation-delay: 0.3s;
+    }
+
+    .formGroup:nth-child(2) {
+        animation-delay: 0.35s;
+    }
+
+    .formGroup:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    .formGroup:nth-child(4) {
+        animation-delay: 0.45s;
+    }
+
+    .formGroup:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+
+    .formGroup:nth-child(6) {
+        animation-delay: 0.55s;
+    }
+
+    .formGroup:nth-child(7) {
+        animation-delay: 0.6s;
+    }
+
+    .formGroup:nth-child(8) {
+        animation-delay: 0.65s;
+    }
+
+    .formActions {
+        animation-delay: 0.7s;
+    }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+
+    .overlay,
+    .modal,
+    .header,
+    .form,
+    .formGroup,
+    .formRow,
+    .formActions {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .error {
+        animation: none;
+    }
+
+    .errorText {
+        animation: none;
+        opacity: 1;
+    }
+}

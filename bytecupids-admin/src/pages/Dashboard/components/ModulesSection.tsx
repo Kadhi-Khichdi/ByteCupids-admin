@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./ModulesSection.module.css";
+import CreateModuleForm from "./CreateModuleForm";
 
 interface Module {
   id: string;
@@ -9,6 +10,7 @@ interface Module {
 
 const ModulesSection: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const [modules, setModules] = useState<Module[]>([
     { id: "MOD001", title: "Introduction to React", difficulty: "Easy" },
     { id: "MOD002", title: "Advanced TypeScript", difficulty: "Hard" },
@@ -64,8 +66,28 @@ const ModulesSection: React.FC = () => {
   };
 
   const handleCreateNew = () => {
-    console.log("Create new module");
-    // TODO: Connect with backend
+    setIsFormOpen(true);
+  };
+
+  const handleFormSubmit = async (moduleData: any) => {
+    try {
+      console.log("Creating module:", moduleData);
+      // TODO: Connect with backend API
+      // For now, add a dummy module to the list
+      const newModule: Module = {
+        id: `MOD${String(modules.length + 1).padStart(3, "0")}`,
+        title: moduleData.module_name,
+        difficulty: moduleData.metadata.difficulty_level.includes("Beginner")
+          ? "Easy"
+          : moduleData.metadata.difficulty_level.includes("Advanced")
+          ? "Hard"
+          : "Medium",
+      };
+      setModules((prev) => [...prev, newModule]);
+    } catch (error) {
+      console.error("Error creating module:", error);
+      throw error;
+    }
   };
 
   const getDifficultyColor = (difficulty: string) => {
@@ -82,74 +104,82 @@ const ModulesSection: React.FC = () => {
   };
 
   return (
-    <div className={styles.modulesSection}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Modules</h1>
-        <div className={styles.headerActions}>
-          <div className={styles.searchContainer}>
-            <input
-              type="text"
-              placeholder="Search modules..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className={styles.searchInput}
-            />
+    <>
+      <div className={styles.modulesSection}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Modules</h1>
+          <div className={styles.headerActions}>
+            <div className={styles.searchContainer}>
+              <input
+                type="text"
+                placeholder="Search modules..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className={styles.searchInput}
+              />
+            </div>
+            <button className={styles.createButton} onClick={handleCreateNew}>
+              + Create Module
+            </button>
           </div>
-          <button className={styles.createButton} onClick={handleCreateNew}>
-            + Create Module
-          </button>
         </div>
-      </div>
 
-      <div className={styles.modulesContainer}>
-        <div className={styles.modulesList}>
-          {filteredModules.map((module) => (
-            <div key={module.id} className={styles.moduleItem} onClick={(e) => handleEdit(module.id,e)}>
-              <div className={styles.moduleContent}>
-                <div className={styles.moduleInfo}>
-                  <div
-                    className={styles.difficultyBadge}
-                    style={{
-                      backgroundColor: getDifficultyColor(module.difficulty),
-                    }}
-                  >
-                    {module.difficulty.charAt(0)}
+        <div className={styles.modulesContainer}>
+          <div className={styles.modulesList}>
+            {filteredModules.map((module) => (
+              <div key={module.id} className={styles.moduleItem}>
+                <div className={styles.moduleContent}>
+                  <div className={styles.moduleInfo}>
+                    <div
+                      className={styles.difficultyBadge}
+                      style={{
+                        backgroundColor: getDifficultyColor(module.difficulty),
+                      }}
+                    >
+                      {module.difficulty.charAt(0)}
+                    </div>
+                    <div className={styles.moduleDetails}>
+                      <h3 className={styles.moduleTitle} title={module.title}>
+                        {module.title}
+                      </h3>
+                      <p className={styles.moduleId}>{module.id}</p>
+                    </div>
                   </div>
-                  <div className={styles.moduleDetails}>
-                    <h3 className={styles.moduleTitle} title={module.title}>
-                      {module.title}
-                    </h3>
-                    <p className={styles.moduleId}>{module.id}</p>
+                  <div className={styles.moduleActions}>
+                    <button
+                      className={styles.editButton}
+                      onClick={(e) => handleEdit(module.id, e)}
+                      title="Edit module"
+                    >
+                      ✏️
+                    </button>
+                    <button
+                      className={styles.deleteButton}
+                      onClick={(e) => handleDelete(module.id, e)}
+                      title="Delete module"
+                    >
+                      🗑️
+                    </button>
                   </div>
-                </div>
-                <div className={styles.moduleActions}>
-                  <button
-                    className={styles.editButton}
-                    onClick={(e) => handleEdit(module.id, e)}
-                    title="Edit module"
-                  >
-                    ✏️
-                  </button>
-                  <button
-                    className={styles.deleteButton}
-                    onClick={(e) => handleDelete(module.id, e)}
-                    title="Delete module"
-                  >
-                    🗑️
-                  </button>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
+        {filteredModules.length === 0 && (
+          <div className={styles.emptyState}>
+            <p>No modules found matching your search.</p>
+          </div>
+        )}
       </div>
 
-      {filteredModules.length === 0 && (
-        <div className={styles.emptyState}>
-          <p>No modules found matching your search.</p>
-        </div>
-      )}
-    </div>
+      <CreateModuleForm
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        onSubmit={handleFormSubmit}
+      />
+    </>
   );
 };
 
