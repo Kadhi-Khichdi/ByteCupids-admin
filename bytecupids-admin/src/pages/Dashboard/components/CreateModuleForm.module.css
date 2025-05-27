@@ -565,3 +565,119 @@
         opacity: 1;
     }
 }
+
+/* Add these to your existing CreateModuleForm.module.css */
+
+.progressContainer {
+    padding: var(--spacing-4);
+    border-bottom: var(--border-light);
+    background: var(--color-surface);
+    margin-bottom: var(--spacing-2);
+
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: slideInProgress 0.3s ease-out forwards;
+}
+
+@keyframes slideInProgress {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.progressHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-3);
+}
+
+.progressHeader h3 {
+    margin: 0;
+    font-size: var(--font-size-body);
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-medium);
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-surface-2);
+    border-top: 2px solid var(--color-neon-violet);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.progressMessages {
+    max-height: 120px;
+    overflow-y: auto;
+    background: var(--color-bg);
+    border: var(--border-light);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-2);
+}
+
+.progressMessage {
+    padding: var(--spacing-1) var(--spacing-2);
+    font-size: var(--font-size-caption);
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-surface);
+    animation: fadeInMessage 0.2s ease-out;
+}
+
+.progressMessage:last-child {
+    border-bottom: none;
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-medium);
+}
+
+@keyframes fadeInMessage {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Disable form when submitting */
+.form input:disabled,
+.form select:disabled,
+.form textarea:disabled {
+    background: var(--color-surface-2);
+    color: var(--color-text-tertiary);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Close button disabled state */
+.closeButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.closeButton:disabled:hover {
+    background: transparent !important;
+    color: var(--color-text-secondary) !important;
+}

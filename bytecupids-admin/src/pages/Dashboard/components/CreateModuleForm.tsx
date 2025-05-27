@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './CreateModuleForm.module.css';
+import newModuleService from '../../../services/NewModuleService';
 
 interface CreateModuleFormProps {
   isOpen: boolean;
@@ -34,6 +35,8 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
 
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [progressMessages, setProgressMessages] = useState<string[]>([]);
+  const [showProgress, setShowProgress] = useState(false);
 
   const difficultyOptions = [
     'Beginner',
@@ -80,28 +83,44 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+    setShowProgress(true);
+    setProgressMessages([]);
 
     try {
-      const moduleData = {
-        module_name: formData.module_name.trim(),
-        metadata: {
-          target_audience: formData.target_audience.trim(),
-          difficulty_level: formData.difficulty_level,
-          estimated_completion_time: formData.estimated_completion_time.trim(),
-          keywords: formData.keywords.trim(),
-          prerequisites: formData.prerequisites.trim(),
-          other_metadata: formData.other_metadata.trim()
-        },
-        agent_notes: formData.agent_notes.trim(),
-        interpretation: formData.interpretation.trim()
-      };
+      // Transform form data to request format
+      const requestData = newModuleService.transformFormDataToRequest({
+        module_name: formData.module_name,
+        target_audience: formData.target_audience,
+        difficulty_level: formData.difficulty_level,
+        estimated_completion_time: formData.estimated_completion_time,
+        prerequisites: formData.prerequisites,
+        keywords: formData.keywords,
+        other_metadata: formData.other_metadata,
+        agent_notes: formData.agent_notes,
+        interpretation: formData.interpretation,
+      }, 'your-access-token-here'); // Replace with actual access token
 
-      await onSubmit(moduleData);
+      // Create the module using the service with progress tracking
+      const response = await newModuleService.createModuleWithValidation(
+        requestData,
+        (chunk: string) => {
+          // Handle progress updates here
+          console.log('Progress:', chunk);
+          setProgressMessages(prev => [...prev, chunk]);
+        }
+      );
+      
+      console.log('Module created successfully:', response);
+      await onSubmit(response);
       handleClose();
+      
     } catch (error) {
       console.error('Error creating module:', error);
+      alert(error instanceof Error ? error.message : 'Failed to create module');
     } finally {
       setIsSubmitting(false);
+      setShowProgress(false);
+      setProgressMessages([]);
     }
   };
 
@@ -118,6 +137,8 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
       interpretation: ''
     });
     setErrors({});
+    setProgressMessages([]);
+    setShowProgress(false);
     onClose();
   };
 
@@ -136,10 +157,27 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
             className={styles.closeButton} 
             onClick={handleClose}
             type="button"
+            disabled={isSubmitting}
           >
             ✕
           </button>
         </div>
+
+        {showProgress && (
+          <div className={styles.progressContainer}>
+            <div className={styles.progressHeader}>
+              <h3>Creating Module...</h3>
+              <div className={styles.spinner}></div>
+            </div>
+            <div className={styles.progressMessages}>
+              {progressMessages.map((message, index) => (
+                <div key={index} className={styles.progressMessage}>
+                  {message}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
@@ -152,6 +190,7 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
               value={formData.module_name}
               onChange={(e) => handleInputChange('module_name', e.target.value)}
               placeholder="Enter module name"
+              disabled={isSubmitting}
             />
             {errors.module_name && <span className={styles.errorText}>{errors.module_name}</span>}
           </div>
@@ -167,6 +206,7 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
                 value={formData.target_audience}
                 onChange={(e) => handleInputChange('target_audience', e.target.value)}
                 placeholder="e.g., Web Developers, Students"
+                disabled={isSubmitting}
               />
               {errors.target_audience && <span className={styles.errorText}>{errors.target_audience}</span>}
             </div>
@@ -179,6 +219,7 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
                 className={`${styles.select} ${errors.difficulty_level ? styles.error : ''}`}
                 value={formData.difficulty_level}
                 onChange={(e) => handleInputChange('difficulty_level', e.target.value)}
+                disabled={isSubmitting}
               >
                 <option value="">Select difficulty</option>
                 {difficultyOptions.map(option => (
@@ -200,6 +241,7 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
                 value={formData.estimated_completion_time}
                 onChange={(e) => handleInputChange('estimated_completion_time', e.target.value)}
                 placeholder="e.g., 30 hours, 2 weeks"
+                disabled={isSubmitting}
               />
               {errors.estimated_completion_time && <span className={styles.errorText}>{errors.estimated_completion_time}</span>}
             </div>
@@ -214,6 +256,7 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
                 value={formData.prerequisites}
                 onChange={(e) => handleInputChange('prerequisites', e.target.value)}
                 placeholder="Comma-separated list"
+                disabled={isSubmitting}
               />
               {errors.prerequisites && <span className={styles.errorText}>{errors.prerequisites}</span>}
             </div>
@@ -229,6 +272,7 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
               onChange={(e) => handleInputChange('keywords', e.target.value)}
               placeholder="Comma-separated domain-specific terms, concepts, and technologies"
               rows={3}
+              disabled={isSubmitting}
             />
             {errors.keywords && <span className={styles.errorText}>{errors.keywords}</span>}
           </div>
@@ -243,6 +287,7 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
               onChange={(e) => handleInputChange('other_metadata', e.target.value)}
               placeholder="e.g., Lessons: 12, Instructor: Jane Doe, Format: Video"
               rows={2}
+              disabled={isSubmitting}
             />
             {errors.other_metadata && <span className={styles.errorText}>{errors.other_metadata}</span>}
           </div>
@@ -257,6 +302,7 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
               onChange={(e) => handleInputChange('agent_notes', e.target.value)}
               placeholder="Summarize assumptions, estimations, or missing fields"
               rows={3}
+              disabled={isSubmitting}
             />
             {errors.agent_notes && <span className={styles.errorText}>{errors.agent_notes}</span>}
           </div>
@@ -274,6 +320,7 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
               onChange={(e) => handleInputChange('interpretation', e.target.value)}
               placeholder="Summary of what this module covers (max 100 words)"
               rows={4}
+              disabled={isSubmitting}
             />
             {errors.interpretation && <span className={styles.errorText}>{errors.interpretation}</span>}
           </div>

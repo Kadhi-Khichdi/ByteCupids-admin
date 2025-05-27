@@ -11,30 +11,7 @@ interface Module {
 const ModulesSection: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [modules, setModules] = useState<Module[]>([
-    { id: "MOD001", title: "Introduction to React", difficulty: "Easy" },
-    { id: "MOD002", title: "Advanced TypeScript", difficulty: "Hard" },
-    { id: "MOD003", title: "CSS Animations", difficulty: "Medium" },
-    { id: "MOD004", title: "Node.js Fundamentals", difficulty: "Easy" },
-    { id: "MOD005", title: "Database Design", difficulty: "Hard" },
-    { id: "MOD006", title: "API Development", difficulty: "Medium" },
-    { id: "MOD007", title: "Testing Strategies", difficulty: "Medium" },
-    { id: "MOD008", title: "DevOps Basics", difficulty: "Hard" },
-    { id: "MOD009", title: "React Native", difficulty: "Medium" },
-    { id: "MOD010", title: "GraphQL Fundamentals", difficulty: "Hard" },
-    { id: "MOD011", title: "MongoDB Basics", difficulty: "Easy" },
-    { id: "MOD012", title: "Docker Containers", difficulty: "Medium" },
-    {
-      id: "MOD013",
-      title: "Advanced Machine Learning with TensorFlow and PyTorch",
-      difficulty: "Hard",
-    },
-    {
-      id: "MOD014",
-      title: "Microservices Architecture Design Patterns",
-      difficulty: "Hard",
-    },
-  ]);
+  const [modules, setModules] = useState<Module[]>([]);
 
   const filteredModules = modules.filter(
     (module) =>
@@ -72,21 +49,24 @@ const ModulesSection: React.FC = () => {
   const handleFormSubmit = async (moduleData: any) => {
     try {
       console.log("Creating module:", moduleData);
-      // TODO: Connect with backend API
-      // For now, add a dummy module to the list
+
+      // Create the new module object matching the Module interface
       const newModule: Module = {
-        id: `MOD${String(modules.length + 1).padStart(3, "0")}`,
-        title: moduleData.module_name,
-        difficulty: moduleData.metadata.difficulty_level.includes("Beginner")
-          ? "Easy"
-          : moduleData.metadata.difficulty_level.includes("Advanced")
-          ? "Hard"
-          : "Medium",
+        id: moduleData.moduleId,
+        title: moduleData.moduleName,
+        difficulty: moduleData.difficultyLevel,
       };
-      setModules((prev) => [...prev, newModule]);
+
+      // Add to the modules list
+      setModules((prev) => [newModule, ...prev]);
+
+      // Close the form
+      setIsFormOpen(false);
+
+      console.log("Module added successfully:", newModule);
     } catch (error) {
       console.error("Error creating module:", error);
-      throw error;
+      alert("Failed to create module. Please try again.");
     }
   };
 
