@@ -40,6 +40,7 @@ const ThemedLoaderComponent = () => (
 
 const AdminLoginPage = lazyWithMinTime(() => import('./pages/AdminLogin/AdminLoginPage'))
 const DashboardPage = lazyWithMinTime(() => import('./pages/Dashboard/DashboardPage'))
+const EditorPage = lazyWithMinTime(() => import('./pages/Editor/EditorPage'))
 
 
 function App() {
@@ -54,6 +55,12 @@ function App() {
               </DashboardProvider>
             </Suspense>
           } />
+          <Route path="/editor" element={
+            <Suspense fallback={<ThemedLoaderComponent />}>
+              <EditorPage />
+            </Suspense>
+          } />
+          <Route path="*" element={<div>404 Not Found</div>} />
         </Routes>
       </BrowserRouter>
   );
