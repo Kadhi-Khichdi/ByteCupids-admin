@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './CreateModuleForm.module.css';
 import newModuleService from '../../../services/NewModuleService';
+import type { NewModuleResponse } from '../../../types/NewModuleResponse';
 
 interface CreateModuleFormProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (moduleData: any) => void;
+  onSubmit: (moduleData: NewModuleResponse) => void;
 }
 
 interface FormData {
@@ -40,7 +41,7 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
 
   const difficultyOptions = [
     'Beginner',
-    'Beginner to Intermediate',
+    'Beginner to Intermediate', 
     'Intermediate',
     'Intermediate to Advanced',
     'Advanced',
@@ -84,7 +85,7 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
 
     setIsSubmitting(true);
     setShowProgress(true);
-    setProgressMessages([]);
+    setProgressMessages(['Preparing module creation...']);
 
     try {
       // Transform form data to request format
@@ -98,33 +99,48 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
         other_metadata: formData.other_metadata,
         agent_notes: formData.agent_notes,
         interpretation: formData.interpretation,
-      }, 'your-access-token-here'); // Replace with actual access token
+      }, 'default-access-token');
 
       // Create the module using the service with progress tracking
       const response = await newModuleService.createModuleWithValidation(
         requestData,
-        (chunk: string) => {
-          // Handle progress updates here
-          console.log('Progress:', chunk);
-          setProgressMessages(prev => [...prev, chunk]);
+        (message: string) => {
+          console.log('Progress:', message);
+          setProgressMessages(prev => [...prev, message]);
         }
       );
       
       console.log('Module created successfully:', response);
-      await onSubmit(response);
-      handleClose();
+      
+      // Call the parent's onSubmit with the response (this will update the grid)
+      onSubmit(response);
+      
+      // Reset ALL states after successful submission
+      resetFormState();
+      onClose();
       
     } catch (error) {
       console.error('Error creating module:', error);
-      alert(error instanceof Error ? error.message : 'Failed to create module');
-    } finally {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to create module';
+      alert(`Error: ${errorMessage}`);
+      
+      // On error, only reset submission states, keep form data for retry
       setIsSubmitting(false);
       setShowProgress(false);
       setProgressMessages([]);
     }
   };
 
-  const handleClose = () => {
+  // Reset form completely when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      // Ensure fresh state when form opens
+      resetFormState();
+    }
+  }, [isOpen]);
+
+  // Add a helper function to reset all form state
+  const resetFormState = () => {
     setFormData({
       module_name: '',
       target_audience: '',
@@ -137,8 +153,16 @@ const CreateModuleForm: React.FC<CreateModuleFormProps> = ({ isOpen, onClose, on
       interpretation: ''
     });
     setErrors({});
-    setProgressMessages([]);
+    setIsSubmitting(false);
     setShowProgress(false);
+    setProgressMessages([]);
+  };
+
+  const handleClose = () => {
+    if (isSubmitting) return; // Prevent closing while submitting
+    
+    // Reset all form state when closing
+    resetFormState();
     onClose();
   };
 

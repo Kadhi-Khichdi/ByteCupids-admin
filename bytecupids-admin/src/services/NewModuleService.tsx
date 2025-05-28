@@ -26,6 +26,14 @@ class NewModuleService {
   private readonly endpoint = '/bytecupids/admin/generate/module-input';
 
   /**
+   * Generates a temporary module ID
+   * @returns string - Temporary module ID format: MOD{timestamp}
+   */
+  generateTempModuleId(): string {
+    return `MOD${Date.now()}`;
+  }
+
+  /**
    * Creates a new module by handling SSE stream from the backend
    * @param moduleData - The module data to be sent to the backend
    * @param onProgress - Optional callback for progress updates
@@ -384,7 +392,7 @@ class NewModuleService {
     const now = new Date();
     
     return {
-      moduleId: `MOD${Date.now()}`, // Generate a temporary ID
+      moduleId: this.generateTempModuleId(), // Use temporary ID
       moduleName: backendData.module_name,
       targetAudience: backendData.metadata.target_audience,
       difficultyLevel: backendData.metadata.difficulty_level,

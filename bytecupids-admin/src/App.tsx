@@ -55,7 +55,7 @@ function App() {
               </DashboardProvider>
             </Suspense>
           } />
-          <Route path="/editor" element={
+          <Route path="/editor/:moduleId" element={
             <Suspense fallback={<ThemedLoaderComponent />}>
               <EditorPage />
             </Suspense>
