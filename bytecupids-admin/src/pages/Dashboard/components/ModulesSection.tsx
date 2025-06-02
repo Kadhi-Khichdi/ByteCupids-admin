@@ -406,43 +406,31 @@ const ModulesSection: React.FC = () => {
                       className={`${styles.moduleCard} ${styles.tempModuleCard}`}
                       onClick={() => handleModuleClick(module.id)}
                     >
-                      <div className={styles.moduleCardHeader}>
-                        <div className={styles.moduleIcon}>
-                          <span className={styles.tempModuleIcon}>📝</span>
-                        </div>
-                        <div className={styles.moduleStatus}>
-                          <span className={styles.tempStatusBadge}>Not Saved</span>
-                        </div>
-                      </div>
-                      
                       <div className={styles.moduleCardContent}>
                         <h3 className={styles.moduleCardTitle}>{module.title}</h3>
                         <p className={styles.moduleCardId}>{module.id}</p>
-                        <div className={styles.moduleCardMeta}>
-                          <span className={styles.audience}>{module.targetAudience}</span>
-                          <span className={styles.difficulty}>
-                            <span className={styles.difficultyDot} style={{backgroundColor: getDifficultyColor(module.difficulty)}}></span>
-                            {module.difficulty}
-                          </span>
-                        </div>
-                        <p className={styles.estimatedTime}>⏱️ {module.estimatedCompletionTime}</p>
                       </div>
                       
-                      <div className={styles.moduleCardActions}>
-                        <button
-                          className={styles.actionButton}
-                          onClick={(e) => handleEdit(module.id, e)}
-                          title="Edit module"
-                        >
-                          ✏️
-                        </button>
-                        <button
-                          className={styles.actionButton}
-                          onClick={(e) => handleDelete(module.id, e)}
-                          title="Delete module"
-                        >
-                          🗑️
-                        </button>
+                      <div className={styles.moduleCardRight}>
+                        <div className={styles.moduleStatus}>
+                          <span className={styles.tempStatusBadge}>Not Saved</span>
+                        </div>
+                        <div className={styles.moduleCardActions}>
+                          <button
+                            className={styles.actionButton}
+                            onClick={(e) => handleEdit(module.id, e)}
+                            title="Edit module"
+                          >
+                            ✏️
+                          </button>
+                          <button
+                            className={styles.actionButton}
+                            onClick={(e) => handleDelete(module.id, e)}
+                            title="Delete module"
+                          >
+                            🗑️
+                          </button>
+                        </div>
                       </div>
                     </div>
                   ))
@@ -480,50 +468,31 @@ const ModulesSection: React.FC = () => {
                     className={`${styles.moduleCard} ${styles.savedModuleCard}`}
                     onClick={() => handleModuleClick(module.id)}
                   >
-                    <div className={styles.moduleCardHeader}>
-                      <div className={styles.moduleIcon}>
-                        <span className={styles.savedModuleIcon}>💾</span>
-                      </div>
-                      <div className={styles.moduleStatus}>
-                        <span className={styles.savedStatusBadge}>Saved</span>
-                      </div>
-                    </div>
-                    
                     <div className={styles.moduleCardContent}>
                       <h3 className={styles.moduleCardTitle}>{module.title}</h3>
                       <p className={styles.moduleCardId}>{module.id}</p>
-                      <div className={styles.moduleCardMeta}>
-                        <span className={styles.audience}>{module.targetAudience}</span>
-                        <span className={styles.difficulty}>
-                          <span className={styles.difficultyDot} style={{backgroundColor: getDifficultyColor(module.difficulty)}}></span>
-                          {module.difficulty}
-                        </span>
-                      </div>
-                      <div className={styles.moduleStats}>
-                        <span className={styles.statsItem}>
-                          📚 {module.noOfTopics || 0} topics
-                        </span>
-                        <span className={styles.statsItem}>
-                          📄 {module.noOfSubTopics || 0} subtopics
-                        </span>
-                      </div>
                     </div>
                     
-                    <div className={styles.moduleCardActions}>
-                      <button
-                        className={styles.actionButton}
-                        onClick={(e) => handleEdit(module.id, e)}
-                        title="Edit module"
-                      >
-                        ✏️
-                      </button>
-                      <button
-                        className={styles.actionButton}
-                        onClick={(e) => handleDelete(module.id, e)}
-                        title="Delete module"
-                      >
-                        🗑️
-                      </button>
+                    <div className={styles.moduleCardRight}>
+                      <div className={styles.moduleStatus}>
+                        <span className={styles.savedStatusBadge}>Saved</span>
+                      </div>
+                      <div className={styles.moduleCardActions}>
+                        <button
+                          className={styles.actionButton}
+                          onClick={(e) => handleEdit(module.id, e)}
+                          title="Edit module"
+                        >
+                          ✏️
+                        </button>
+                        <button
+                          className={styles.actionButton}
+                          onClick={(e) => handleDelete(module.id, e)}
+                          title="Delete module"
+                        >
+                          🗑️
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))
