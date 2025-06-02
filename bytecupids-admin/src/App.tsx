@@ -1,7 +1,8 @@
 import React, { Suspense } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
-import { DashboardProvider } from './context/DashboardContext'
+import { DashboardProvider } from './contexts/DashboardContext'
+import { EditorProvider } from './contexts/EditorContext'
 
 
 const lazyWithMinTime = (
@@ -46,22 +47,26 @@ const EditorPage = lazyWithMinTime(() => import('./pages/Editor/EditorPage'))
 function App() {
   return (
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<AdminLoginPage />} />
-          <Route path="/dashboard" element={
-            <Suspense fallback={<ThemedLoaderComponent />}>
-              <DashboardProvider>
-                <DashboardPage />
-              </DashboardProvider>
-            </Suspense>
-          } />
-          <Route path="/editor/:moduleId" element={
-            <Suspense fallback={<ThemedLoaderComponent />}>
-              <EditorPage />
-            </Suspense>
-          } />
-          <Route path="*" element={<div>404 Not Found</div>} />
-        </Routes>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={
+              <Suspense fallback={<ThemedLoaderComponent />}>
+                <DashboardProvider>
+                  <DashboardPage />
+                </DashboardProvider>
+              </Suspense>
+            } />
+            <Route path="/editor/:moduleId" element={
+              <Suspense fallback={<ThemedLoaderComponent />}>
+                <EditorProvider>
+                  <EditorPage />
+                </EditorProvider>
+              </Suspense>
+            } />
+            <Route path="*" element={<div>404 Not Found</div>} />
+          </Routes>
+        </div>
       </BrowserRouter>
   );
 }

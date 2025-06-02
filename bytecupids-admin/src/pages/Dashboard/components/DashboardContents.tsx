@@ -1,6 +1,6 @@
 import type React from "react";
 import styles from "./DashboardContents.module.css"; // Import styles as an object
-import { useDashboardContext } from "../../../context/DashboardContext";
+import { useDashboardContext } from "../../../contexts/DashboardContext";
 import DashBoardModules from "./ModulesSection";
 import Dashboard from "./Dashboard";
 import Pipelines from "./Pipelines";

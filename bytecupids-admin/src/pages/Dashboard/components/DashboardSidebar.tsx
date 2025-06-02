@@ -1,7 +1,7 @@
 import type React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./DashboardSidebar.module.css";
-import { useDashboardContext } from "../../../context/DashboardContext";
+import { useDashboardContext } from "../../../contexts/DashboardContext";
 
 
 const DashboardSidebar:React.FC = () => {
@@ -30,11 +30,11 @@ const DashboardSidebar:React.FC = () => {
       <div className={styles["logo"]}>Bytecupids</div>      
 
       <div className={styles["sidebar-items"]}>
-        
+{/*         
         <div className={styles["sidebar-item"]} onClick={() => {
           handleTabChange("dashboard");}}>
           <span>Dashboard</span>
-        </div>
+        </div> */}
 
         <div className={styles["sidebar-item"]} onClick={() => {
           handleTabChange("modules");}}>

@@ -19,7 +19,7 @@ interface DashboardProviderProps {
     children: React.ReactNode;
 }
 export const DashboardProvider: React.FC<DashboardProviderProps> = ({ children }) => {
-    const [hasSelected, setSelected] = useState<string>("dashboard"); // This should be replaced with actual logic to determine if something is selected
+    const [hasSelected, setSelected] = useState<string>("modules"); // This should be replaced with actual logic to determine if something is selected
 
     const handleSelected = (selected: string) => {
         setSelected(selected);
