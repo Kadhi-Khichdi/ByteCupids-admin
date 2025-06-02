@@ -12,7 +12,7 @@ type EditorStage = 'metadata' | 'topics' | 'subtopics' | 'content';
 interface EditorStageConfig {
   id: EditorStage;
   label: string;
-  component: React.ComponentType;
+  component: React.ComponentType<{ onNextStage?: () => void }>;
 }
 
 const editorStages: EditorStageConfig[] = [
@@ -75,12 +75,20 @@ const EditorPage: React.FC = () => {
     setActiveStage(stageId);
   };
 
+  const handleNextStage = () => {
+    const currentIndex = editorStages.findIndex(stage => stage.id === activeStage);
+    if (currentIndex < editorStages.length - 1) {
+      const nextStage = editorStages[currentIndex + 1];
+      setActiveStage(nextStage.id);
+    }
+  };
+
   const renderActiveComponent = () => {
     const activeStageConfig = editorStages.find(stage => stage.id === activeStage);
     if (!activeStageConfig) return null;
     
     const Component = activeStageConfig.component;
-    return <Component />;
+    return <Component onNextStage={handleNextStage} />;
   };
 
   // Loading state
