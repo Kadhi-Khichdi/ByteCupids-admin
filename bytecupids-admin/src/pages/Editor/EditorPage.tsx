@@ -9,10 +9,30 @@ import styles from "./Editor.module.css";
 
 type EditorStage = 'metadata' | 'topics' | 'subtopics' | 'content';
 
+// Base props that all stage components receive
+interface BaseStageProps {
+  onNextStage?: () => void;
+}
+
+// Extended props for specific components
+interface TopicsStageProps extends BaseStageProps {
+  onTopicSelect?: (topicId: string, topicName: string) => void;
+}
+
+interface SubtopicsStageProps extends BaseStageProps {
+  selectedTopic?: {id: string, name: string} | null;
+  onSubtopicSelect?: (subtopicId: string, subtopicName: string) => void;
+}
+
+interface ContentStageProps extends BaseStageProps {
+  selectedTopic?: {id: string, name: string} | null;
+  selectedSubtopic?: {id: string, name: string} | null;
+}
+
 interface EditorStageConfig {
   id: EditorStage;
   label: string;
-  component: React.ComponentType<{ onNextStage?: () => void }>;
+  component: React.ComponentType<any>; // Changed to any to allow different prop types
 }
 
 const editorStages: EditorStageConfig[] = [
@@ -35,6 +55,8 @@ const EditorPage: React.FC = () => {
   } = useEditor();
   
   const [activeStage, setActiveStage] = useState<EditorStage>('metadata');
+  const [selectedTopic, setSelectedTopic] = useState<{id: string, name: string} | null>(null);
+  const [selectedSubtopic, setSelectedSubtopic] = useState<{id: string, name: string} | null>(null);
   const loadedModuleId = useRef<string | null>(null);
 
   useEffect(() => {
@@ -83,12 +105,60 @@ const EditorPage: React.FC = () => {
     }
   };
 
+  const handleTopicSelect = (topicId: string, topicName: string) => {
+    setSelectedTopic({ id: topicId, name: topicName });
+    console.log(`Selected topic: ${topicName} (ID: ${topicId})`);
+  };
+
+  const handleSubtopicSelect = (subtopicId: string, subtopicName: string) => {
+    setSelectedSubtopic({ id: subtopicId, name: subtopicName });
+    console.log(`Selected subtopic: ${subtopicName} (ID: ${subtopicId})`);
+  };
+
   const renderActiveComponent = () => {
     const activeStageConfig = editorStages.find(stage => stage.id === activeStage);
     if (!activeStageConfig) return null;
     
     const Component = activeStageConfig.component;
-    return <Component onNextStage={handleNextStage} />;
+    
+    // Pass specific props based on the active stage
+    switch (activeStage) {
+      case 'metadata':
+        return (
+          <Component 
+            onNextStage={handleNextStage}
+          />
+        );
+        
+      case 'topics':
+        return (
+          <Component 
+            onNextStage={handleNextStage}
+            onTopicSelect={handleTopicSelect}
+          />
+        );
+        
+      case 'subtopics':
+        return (
+          <Component 
+            onNextStage={handleNextStage}
+            selectedTopic={selectedTopic}
+            onSubtopicSelect={handleSubtopicSelect}
+          />
+        );
+        
+      case 'content':
+        return (
+          <Component 
+            onNextStage={handleNextStage}
+            selectedTopic={selectedTopic}
+            selectedSubtopic={selectedSubtopic}
+          />
+        );
+        
+      default:
+        return <Component onNextStage={handleNextStage} />;
+    }
   };
 
   // Loading state
@@ -188,6 +258,16 @@ const EditorPage: React.FC = () => {
       <div className={styles.stageContent}>
         {renderActiveComponent()}
       </div>
+      
+      {/* Debug Info - Remove in production */}
+      {selectedTopic && (
+        <div className={styles.debugInfo}>
+          <small>Selected Topic: {selectedTopic.name} (ID: {selectedTopic.id})</small>
+          {selectedSubtopic && (
+            <small>Selected Subtopic: {selectedSubtopic.name} (ID: {selectedSubtopic.id})</small>
+          )}
+        </div>
+      )}
     </div>
   );
 };

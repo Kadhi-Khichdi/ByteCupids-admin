@@ -25,7 +25,8 @@ const ModuleMetadata: React.FC<ModuleMetadataProps> = ({ onNextStage }) => {
     updateModuleData, 
     resetToOriginal,
     hasUnsavedChanges,
-    isSaving
+    isSaving,
+    saveModule
   } = useEditor();
 
   const [formData, setFormData] = useState<FormData>({
@@ -146,8 +147,8 @@ const ModuleMetadata: React.FC<ModuleMetadataProps> = ({ onNextStage }) => {
     }
 
     try {
-      // Show saving alert
-      alert("Module saved successfully!");
+      // Actually call the save method from context
+      await saveModule();
       
       // Move to next stage
       if (onNextStage) {

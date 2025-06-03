@@ -243,6 +243,34 @@
   margin-bottom: 16px;
 }
 
+/* Debug Info - Remove in production */
+.debugInfo {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--color-white);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.debugInfo small {
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Hide debug info on mobile */
+@media (max-width: 768px) {
+  .debugInfo {
+    display: none;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .stageLabel {
