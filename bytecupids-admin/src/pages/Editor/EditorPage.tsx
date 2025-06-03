@@ -115,6 +115,17 @@ const EditorPage: React.FC = () => {
     console.log(`Selected subtopic: ${subtopicName} (ID: ${subtopicId})`);
   };
 
+  const handleBackToTopics = () => {
+    setSelectedTopic(null);
+    setSelectedSubtopic(null);
+    setActiveStage('topics');
+  };
+
+  const handleBackToSubtopics = () => {
+    setSelectedSubtopic(null);
+    setActiveStage('subtopics');
+  };
+
   const renderActiveComponent = () => {
     const activeStageConfig = editorStages.find(stage => stage.id === activeStage);
     if (!activeStageConfig) return null;
@@ -144,6 +155,7 @@ const EditorPage: React.FC = () => {
             onNextStage={handleNextStage}
             selectedTopic={selectedTopic}
             onSubtopicSelect={handleSubtopicSelect}
+            onBackToTopics={handleBackToTopics}
           />
         );
         
@@ -153,6 +165,7 @@ const EditorPage: React.FC = () => {
             onNextStage={handleNextStage}
             selectedTopic={selectedTopic}
             selectedSubtopic={selectedSubtopic}
+            onBackToSubtopics={handleBackToSubtopics}
           />
         );
         
